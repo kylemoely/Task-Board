@@ -1,0 +1,19 @@
+.button{
+    border: 2px solid black;
+    border-radius: 8px;
+    padding: 0px 7px;
+    margin: 0px 4px;
+}
+
+.signup, .login{
+    font-size:22px;
+    font-weight:500;
+}
+
+.signup{
+    background-color:#55ffaa;
+}
+
+.login{
+    background-color: rgb(83, 172, 255);
+}

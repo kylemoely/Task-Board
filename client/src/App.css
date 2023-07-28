@@ -2,6 +2,22 @@
   text-align: center;
 }
 
+.links{
+  text-decoration:none;
+  color:inherit;
+}
+
+.notd{
+  font-size:40px;
+  font-family:'Apple Chancery', cursive;
+}
+
+header{
+  box-shadow: 4px 4px 4px 2px rgb(138, 138, 138);
+  border-radius: 13px;
+  border: 1px solid rgb(138, 138, 138);
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
