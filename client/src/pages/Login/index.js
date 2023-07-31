@@ -10,9 +10,9 @@ export default function Login(){
             <Row className=''>
                 <div className='acctForm d-flex flex-column align-items-center rounded pb-2'>
                     <div className='h2'>Login</div>
-                    <label for='email' className='align-self-start h5'>Email</label>
+                    <label htmlFor='email' className='align-self-start h5'>Email</label>
                     <input type='text' placeholder='someone@somewhere.com' name='email' className='form-control'></input>
-                    <label for='pwd' className='align-self-start mt-1 d-flex'><div className='h5'>Password</div></label>
+                    <label htmlFor='pwd' className='align-self-start mt-1 d-flex'><div className='h5'>Password</div></label>
                     <input type='password' placeholder='' name='pwd' className='form-control'></input>
                     <div className='button mt-2'>Login</div>
                     <div className='d-flex mt-1'>

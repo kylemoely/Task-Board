@@ -10,11 +10,11 @@ export default function Create(){
             <Row className=''>
                 <div className='acctForm d-flex flex-column align-items-center rounded pb-2'>
                     <div className='h2'>Create Account</div>
-                    <label for='email' className='align-self-start h5'>Email</label>
+                    <label htmlFor='email' className='align-self-start h5'>Email</label>
                     <input type='text' placeholder='someone@somewhere.com' name='email' className='form-control'></input>
-                    <label for='pwd' className='align-self-start mt-1 d-flex'><div className='h5'>Password</div><div className='smalltext'>(8-20 characters)</div></label>
+                    <label htmlFor='pwd' className='align-self-start mt-1 d-flex'><div className='h5'>Password</div><div className='smalltext'>(8-20 characters)</div></label>
                     <input type='password' placeholder='' name='pwd' className='form-control'></input>
-                    <label for='conf' className='align-self-start h5 mt-1'>Confirm Password</label>
+                    <label htmlFor='conf' className='align-self-start h5 mt-1'>Confirm Password</label>
                     <input type='password' placeholder='' name='conf' className='form-control'></input>
                     <div className='button mt-2'>Sign Up</div>
                     <div className='d-flex mt-1'>
