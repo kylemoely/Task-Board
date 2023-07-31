@@ -17,11 +17,11 @@ export default function Create(){
                     <label for='conf' className='align-self-start h5 mt-1'>Confirm Password</label>
                     <input type='password' placeholder='' name='conf' className='form-control'></input>
                     <div className='button mt-2'>Sign Up</div>
-                    <Link to='/login' className='mt-1'>Already have an account?</Link>
                     <div className='d-flex mt-1'>
                         <div className='button'>Google</div>
                         <div className='button'>Facebook</div>
                     </div>
+                    <Link to='/login' className='mt-1'>Already have an account?</Link>
                 </div>
             </Row>
         </Container>
