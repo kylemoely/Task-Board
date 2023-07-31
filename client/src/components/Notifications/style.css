@@ -1,0 +1,11 @@
+.notification{
+    background-color: rgb(127, 204, 255);
+    width:inherit;
+    font-size:22px;
+    margin: 4px 4px;
+}
+
+.notification:hover{
+    cursor:pointer;
+    background-color: rgb(85, 150, 194);
+}

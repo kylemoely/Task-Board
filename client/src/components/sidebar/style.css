@@ -1,0 +1,16 @@
+.bordered{
+    border: 2px solid black;
+}
+
+.project{
+    background-color: rgb(192, 192, 192);
+    overflow:hidden;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+.project:hover{
+    cursor:pointer;
+    background-color: rgb(134, 134, 134);
+    
+}
