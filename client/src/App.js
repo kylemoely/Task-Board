@@ -7,6 +7,7 @@ import Home from './pages/Home';
 import Create from './pages/Create';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Project from './pages/Project';
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
           <Route path='/signup' element={<Create />} />
           <Route path='/login' element={<Login />} />
           <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/project' element={<Project />} />
         </Routes>
       </Router>
     </div>
