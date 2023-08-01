@@ -1,0 +1,8 @@
+.assignee{
+    border-radius:50%;
+    height:min-content;
+    width:min-content;
+    padding:4px;
+    margin:2px;
+    font-weight:500;
+}
