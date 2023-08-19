@@ -2,8 +2,8 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
 import { Container, Row } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
-import { useState, useEffect, } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
 
 export default function Create(){
 
@@ -26,8 +26,10 @@ export default function Create(){
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    const [errMsg, setErrMsg] = useState('');
+    // const [errMsg, setErrMsg] = useState('');
     const [regStep, setRegStep] = useState(0);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         const result = emailRegex.test(email);
@@ -41,16 +43,16 @@ export default function Create(){
         setValidMatch(match);
     }, [password, conf]);
 
-    useEffect(() => {
-        setErrMsg('');
-    }, [email, password, conf]);
+    // useEffect(() => {
+    //     setErrMsg('');
+    // }, [email, password, conf]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const check1 = emailRegex.test(email);
         const check2 = passwordRegex.test(password);
         if(!check1 || !check2){
-            setErrMsg('Invalid Entry');
+            // setErrMsg('Invalid Entry');
             return;
         }
         setRegStep(1);
@@ -64,8 +66,7 @@ export default function Create(){
             body: JSON.stringify({ email, password, firstName, lastName }),
             headers: { 'Content-Type': 'application/json' }
         });
-        console.log(JSON.stringify(response.data));
-        console.log(response.json());
+        navigate('/login');
     }
 
 

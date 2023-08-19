@@ -1,7 +1,6 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
-import { Row } from 'react-bootstrap';
 
 export default function Sidebar() {
     return(

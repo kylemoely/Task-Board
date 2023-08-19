@@ -40,11 +40,6 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
         },
-        isValidated: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false,
-            defaultValue: 0
-        }
     },
     {
         hooks: {
