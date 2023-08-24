@@ -40,11 +40,17 @@ User.init(
             type: DataTypes.STRING,
             allowNull: false
         },
+        refreshToken: {
+            type: DataTypes.STRING,
+            defaultValue: ''
+        }
     },
     {
         hooks: {
             async beforeCreate(newUserData) {
                 newUserData.password = await bcrypt.hash(newUserData.password, 10);
+                newUserData.firstName = newUserData.firstName.charAt(0).toUpperCase() + newUserData.firstName.slice(1);
+                newUserData.lastName = newUserData.lastName.charAt(0).toUpperCase() + newUserData.lastName.slice(1);
                 return newUserData;
             }
         },
