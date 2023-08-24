@@ -12,7 +12,7 @@ export default function Login(){
 
     const navigate = useNavigate();
     const location = useLocation();
-    // const from = location.state.from.pathname || '/dashboard';
+    const from = location.state?.from?.pathname || '/dashboard';
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -20,25 +20,22 @@ export default function Login(){
     const handleLogin = async (e) => {
         e.preventDefault();
         try{
-            const response = await fetch('/api/users/login', {
+            const response = await fetch('/login', {
                 method: 'POST',
                 body: JSON.stringify({ email, password }),
                 headers: { 'Content-Type': 'application/json' }
             });
-            const data = await response.json();// data gives access token and user id
-            const accessToken = data.accessToken;
-            // const userId = data.user.id;
-            // const userEmail = data.user.email;
-            console.log(accessToken);
-            // setAuth({ userId, accessToken, userEmail });
-            // navigate(from, { replace: true }); 
+            const data = await response.json();// data gives access token and user info
+            setAuth({ 
+                userId: data.user.id,
+                accessToken: data.accessToken,
+                firstName: data.user.firstName,
+                lastName: data.user.lastName
+            })
+            navigate(from, { replace: true }); 
         } catch(err){
             console.log(err)
         }
-        
-        
-        
-        
     }
 
     return(

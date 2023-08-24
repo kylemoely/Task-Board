@@ -15,13 +15,16 @@ function App() {
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
+
+        <Route path='/signup' element={<Create />} />
+        <Route path='/login' element={<Login />} />
+
         <Route element={<PersistLogin />}>
           <Route path='/' element={<Home />} />
-          <Route path='/signup' element={<Create />} />
-          <Route path='/login' element={<Login />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/project/:projectId' element={<Project />} />
         </Route>
+
       </Route>
     </Routes>
   );
