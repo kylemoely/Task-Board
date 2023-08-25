@@ -11,11 +11,11 @@ class User extends Model {
 User.init(
     {
         id: {
-            type: DataTypes.UUID,
-            defaultValue: DataTypes.UUIDV4,
+            type: DataTypes.INTEGER,
             allowNull:false,
             unique:true,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         email: {
             type: DataTypes.STRING,
@@ -43,6 +43,9 @@ User.init(
         refreshToken: {
             type: DataTypes.STRING,
             defaultValue: ''
+        },
+        projects: {
+            type: DataTypes.JSON
         }
     },
     {
