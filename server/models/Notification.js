@@ -14,8 +14,8 @@ Notification.init(
             type: DataTypes.STRING,
         },
         status: {
-            type: DataTypes.TEXT('tiny'),
-            defaultValue: 'unread'
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         }
     },
     {

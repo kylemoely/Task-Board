@@ -44,9 +44,6 @@ User.init(
             type: DataTypes.STRING,
             defaultValue: ''
         },
-        projects: {
-            type: DataTypes.JSON
-        }
     },
     {
         hooks: {

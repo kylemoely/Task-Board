@@ -28,11 +28,11 @@ Task.init(
             }
         },
         status: {
-            type: DataTypes.TEXT('tiny'),
-            defaultValue: 'To Do'
+            type: DataTypes.INTEGER,
+            defaultValue: 0
         },
         projectId: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             references: {
                 model: 'project',
                 key: 'id'

@@ -1,4 +1,4 @@
-const { User } = require('../models');
+const { User, Project, Notification, Task } = require('../models');
 const jwt = require('jsonwebtoken');
 require('dotenv').config();
 
@@ -60,4 +60,20 @@ const login = async (req, res) => {
     
 };
 
-module.exports =   { login, signUp };
+const getUserData = async (req, res) => {
+    try{
+        const user = await User.findByPk(req.params.userId, {
+            include: [Project, Task, Notification]
+        });
+        res.status(200).json({
+            projects: user.projects,
+            notifications: user.notifications,
+            tasks: user.tasks
+        });
+    }catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+}
+
+module.exports =   { login, signUp, getUserData };
