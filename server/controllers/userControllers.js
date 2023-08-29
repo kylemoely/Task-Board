@@ -4,19 +4,11 @@ require('dotenv').config();
 
 const signUp = async (req, res) => {
     try{
-        const newUser = await User.create({
-            email: req.body.email,
-            password: req.body.password,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName
-        })
-        .catch((err) => {
-            res.status(400).json(err);
-        })
+        const newUser = await User.create(req.body);
         if(newUser){
             res.status(200).json(newUser);
         } else{
-            res.status(400).json('Something went wrong. Please try again.');
+            res.sendStatus(400);
         }
     } catch(err){
         console.log(err);

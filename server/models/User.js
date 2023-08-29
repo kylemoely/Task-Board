@@ -44,6 +44,9 @@ User.init(
             type: DataTypes.STRING,
             defaultValue: ''
         },
+        color: {
+            type: DataTypes.STRING,
+        }
     },
     {
         hooks: {
@@ -51,6 +54,25 @@ User.init(
                 newUserData.password = await bcrypt.hash(newUserData.password, 10);
                 newUserData.firstName = newUserData.firstName.charAt(0).toUpperCase() + newUserData.firstName.slice(1);
                 newUserData.lastName = newUserData.lastName.charAt(0).toUpperCase() + newUserData.lastName.slice(1);
+                const color = Math.floor(Math.random() * 5);
+                switch (color) {
+                    case 0:
+                        newUserData.color = 'primary';
+                        break;
+                    case 1:
+                        newUserData.color = 'secondary';
+                        break;
+                    case 2: 
+                        newUserData.color = 'success';
+                        break;
+                    case 3:
+                        newUserData.color = 'danger';
+                        break;
+                    case 4:
+                        newUserData.color = 'warning';
+                        break;
+                    
+                }
                 return newUserData;
             }
         },
