@@ -2,7 +2,15 @@ const { User, Project, Notification, Task } = require('../models');
 
 const createProject = async (req, res) => {
     try{
-        const newProject = await Project.create(req.body);
+        const project = await Project.create(req.body, {
+            include: [{
+                model: User
+            }]
+        });
+        const creator = await User.findByPk(req.body.creator);
+        await creator.addProject(project);
+        await project.addUser(creator);
+        const newProject = await project.reload();
         res.status(200).json(newProject);
     } catch(err){
         console.log(err);
@@ -19,9 +27,13 @@ const getProject = async (req, res) => {
                     model: User,
                     attributes: ['id', 'firstName', 'lastName', 'color']
                 }]
-            }]
+            },
+        {
+            model: User,
+            attributes: ['id']
+        }]
         });
-        const { tasks, title } = project;
+        const { tasks, title, users } = project;
         const toDoTasks = [];
         const doingTasks = [];
         const doneTasks = [];
@@ -38,7 +50,7 @@ const getProject = async (req, res) => {
                     break;
             }
         })
-        res.status(200).json({ title, toDoTasks, doingTasks, doneTasks });
+        res.status(200).json({ title, users, toDoTasks, doingTasks, doneTasks });
     } catch(err){
         console.log(err);
         res.status(500).json(err);

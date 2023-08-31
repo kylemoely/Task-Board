@@ -64,4 +64,16 @@ const updateTask = async (req, res) => {
     }
 }
 
-module.exports = { createTask, getTask, updateTask }
+const deleteTask = async (req, res) => {
+    try{ 
+        const oldTask = await Task.destroy({ where: {
+            id: req.params.taskId
+        } });
+        res.status(200).json(oldTask);
+    } catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+}
+
+module.exports = { createTask, getTask, updateTask, deleteTask }
