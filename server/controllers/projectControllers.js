@@ -13,7 +13,13 @@ const createProject = async (req, res) => {
 const getProject = async (req, res) => {
     try{
         const project = await Project.findByPk(req.params.projectId, {
-            include: [Task]
+            include: [{
+                model: Task,
+                include: [{
+                    model: User,
+                    attributes: ['id', 'firstName', 'lastName', 'color']
+                }]
+            }]
         });
         const { tasks, title } = project;
         const toDoTasks = [];
