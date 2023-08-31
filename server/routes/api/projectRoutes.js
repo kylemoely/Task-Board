@@ -1,7 +1,7 @@
 const router = require('express').Router();
-const { createProject, getProject } = require('../../controllers/projectControllers');
+const { createProject, getProject, updateProject } = require('../../controllers/projectControllers');
 
 router.route('/').post(createProject);
-router.route('/:projectId').get(getProject);
+router.route('/:projectId').get(getProject).put(updateProject);
 
 module.exports = router;

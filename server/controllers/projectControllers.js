@@ -45,4 +45,16 @@ const getProject = async (req, res) => {
     }
 }
 
-module.exports = { createProject, getProject };
+const updateProject = async (req, res) => {
+    try{
+        const project = await Project.findByPk(req.params.projectId);
+        await project.update(req.body);
+        const newProject = await project.reload();
+        res.status(200).json(newProject);
+    } catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+}
+
+module.exports = { createProject, getProject, updateProject };
