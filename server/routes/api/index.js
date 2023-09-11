@@ -3,11 +3,10 @@ const userRoutes = require('./userRoutes');
 const authenticate = require('../../controllers/auth/authenticate');
 const taskRoutes = require('../api/taskRoutes');
 const projectRoutes = require('../api/projectRoutes');
-// const thoughtRoutes = require('./thoughtRoutes');
 
 router.use('/users', userRoutes);
 
-// router.use(authenticate);
+router.use(authenticate);
 
 router.use('/tasks', taskRoutes);
 router.use('/projects', projectRoutes);

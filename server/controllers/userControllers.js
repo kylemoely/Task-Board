@@ -22,7 +22,7 @@ const login = async (req, res) => {
             where: { email: req.body.email }
         })
         if(checkUser){
-            const check = await checkUser.checkPassword(req.body.password);
+            const check = checkUser.checkPassword(req.body.password);
             if(check){
                 const user = { 
                     id: checkUser.id,
@@ -33,6 +33,7 @@ const login = async (req, res) => {
                 const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });
                 checkUser.refreshToken = refreshToken;
+                await checkUser.save();
                 res.cookie('jwt', refreshToken, {
                     httpOnly: true,
                     secure: true,
@@ -54,14 +55,18 @@ const login = async (req, res) => {
 
 const getUserData = async (req, res) => {
     try{
-        const user = await User.findByPk(req.params.userId, {
+        const user = await User.findByPk(req.user.id, {
             include: [Project, Task, Notification]
         });
-        res.status(200).json({
-            projects: user.projects,
-            notifications: user.notifications,
-            tasks: user.tasks
-        });
+        if(user){
+            res.status(200).json({
+                projects: user.projects,
+                notifications: user.notifications,
+                tasks: user.tasks
+            });
+        } else{
+            res.sendStatus(403);
+        }
     }catch(err){
         console.log(err);
         res.status(500).json(err);

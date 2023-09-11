@@ -5,6 +5,7 @@ import { Container, Row } from 'react-bootstrap';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
 import useAuth from '../../hooks/useAuth';
+import axios from '../../api/axios';
 
 export default function Login(){
 
@@ -20,17 +21,17 @@ export default function Login(){
     const handleLogin = async (e) => {
         e.preventDefault();
         try{
-            const response = await fetch('/login', {
-                method: 'POST',
-                body: JSON.stringify({ email, password }),
-                headers: { 'Content-Type': 'application/json' }
-            });
-            const data = await response.json();// data gives access token and user info
+            const response = await axios.post('/login', JSON.stringify({ email, password }),
+                {
+                    headers: { 'Content-Type': 'application/json' },
+                    withCredentials: true
+                }
+            );
             setAuth({ 
-                userId: data.user.id,
-                accessToken: data.accessToken,
-                firstName: data.user.firstName,
-                lastName: data.user.lastName
+                userId: response.data.user.id,
+                accessToken: response.data.accessToken,
+                firstName: response.data.user.firstName,
+                lastName: response.data.user.lastName
             })
             navigate(from, { replace: true }); 
         } catch(err){
