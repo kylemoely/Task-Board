@@ -7,35 +7,39 @@ import Notifications from '../../components/Notifications';
 import Tasks from '../../components/Tasks';
 import { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 export default function Dashboard() {
 
     const { auth } = useAuth();
-
-    let userData = {};
+    const axiosPrivate = useAxiosPrivate();
+    const [userData, setUserData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-
         const getData = async () => {
-            const response = await fetch(`/api/users/${auth.userId}`);
-            const data = await response.json();
-            userData = {...data};
-            console.log(userData);
+            const response = await axiosPrivate.get(`/api/users/`);
+            setUserData({...response.data})
+            setIsLoading(false);
         }
-        
         getData();
     }, [])
 
     return(
+
+        <>{ isLoading ? <p> Loading... </p> : 
         <Container className='full mt-4'>
-            <Row className='h-100 d-flex justify-content-between'>
-                <Sidebar />
-                <section className='col-md-9'>
-                    <Notifications />
-                    <Tasks />
-                </section>
-                
-            </Row>
-        </Container>
+        <Row className='h-100 d-flex justify-content-between'>
+            <Sidebar props={userData.projects} />
+            <section className='col-md-9'>
+                <Notifications props={userData.notifications} />
+                <Tasks tasks={userData.tasks} />
+            </section>
+            
+        </Row>
+    </Container>
+        }
+        </>
+        
     )
 };
