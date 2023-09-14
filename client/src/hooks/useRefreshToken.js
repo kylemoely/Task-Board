@@ -14,7 +14,8 @@ const useRefreshToken = () => {
                 accessToken: response.data.accessToken,
                 userId: response.data.user.id,
                 firstName: response.data.user.firstName,
-                lastName: response.data.user.lastName
+                lastName: response.data.user.lastName,
+                color: response.data.user.color
             }
         });
         return response.data.accessToken;

@@ -28,7 +28,8 @@ const login = async (req, res) => {
                     id: checkUser.id,
                     email: checkUser.email,
                     firstName: checkUser.firstName,
-                    lastName: checkUser.lastName
+                    lastName: checkUser.lastName,
+                    color: checkUser.color
                 }
                 const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });

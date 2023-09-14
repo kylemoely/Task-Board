@@ -15,6 +15,15 @@
     background-color: rgb(127, 204, 255);
     color: black;
     font-weight:500;
+    font-size:21px;
     border-radius: 8px;
     height:25%;
+    width:max-content;
+}
+
+.initials{
+    border-radius: 50%;
+    padding:5px;
+    font-weight:600;
+    font-size:21px;
 }

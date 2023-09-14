@@ -31,7 +31,8 @@ export default function Login(){
                 userId: response.data.user.id,
                 accessToken: response.data.accessToken,
                 firstName: response.data.user.firstName,
-                lastName: response.data.user.lastName
+                lastName: response.data.user.lastName,
+                color: response.data.user.color
             })
             navigate(from, { replace: true }); 
         } catch(err){

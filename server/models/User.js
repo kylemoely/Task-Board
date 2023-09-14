@@ -41,7 +41,7 @@ User.init(
             allowNull: false
         },
         refreshToken: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             defaultValue: ''
         },
         color: {
