@@ -12,7 +12,6 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 export default function Project() {
 
     const params = useParams();
-    const { auth } = useAuth();
     const axiosPrivate = useAxiosPrivate();
     const navigate = useNavigate();
 
@@ -31,8 +30,6 @@ export default function Project() {
             } else{
                 setProjectData({...response.data})
                 setIsAuthed(true);
-                console.log(response.data);
-                console.log(projectData);
             }
         }
 
