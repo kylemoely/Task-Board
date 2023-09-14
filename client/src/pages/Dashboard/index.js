@@ -32,7 +32,7 @@ export default function Dashboard() {
         <Row className='h-100 d-flex justify-content-between'>
             <Sidebar props={userData.projects} />
             <section className='col-md-9'>
-                <Notifications props={userData.notifications} />
+                <Notifications notifications={userData.notifications} />
                 <Tasks tasks={userData.tasks} />
             </section>
             

@@ -33,6 +33,7 @@ export default function Project() {
             } else{
                 setProjectData({...response.data})
                 setIsAuthed(true);
+                console.log(response.data);
                 console.log(projectData);
             }
         }
@@ -45,11 +46,11 @@ export default function Project() {
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
-                    <div className='projectTitle h2 text-center'>Project 1</div>
+                    <div className='projectTitle h2 text-center'>{projectData.title}</div>
                     <Row className='h-100 d-flex justify-content-around'>
-                        <ToDo />
-                        <Doing />
-                        <Done />
+                        <ToDo tasks={projectData.toDoTasks}/>
+                        <Doing tasks={projectData.doingTasks}/>
+                        <Done tasks={projectData.doneTasks}/>
                     </Row>
                 </section>
             </Row>
