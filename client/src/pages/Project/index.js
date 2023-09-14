@@ -3,9 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './style.css'
 import { Container, Row } from 'react-bootstrap';
 import Sidebar from '../../components/Sidebar';
-import ToDo from '../../components/ToDo';
-import Doing from '../../components/Doing';
-import Done from '../../components/Done';
+import TaskList from '../../components/TaskList';
 import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
@@ -48,9 +46,9 @@ export default function Project() {
                 <section className='col-md-9 d-flex flex-column'>
                     <div className='projectTitle h2 text-center'>{projectData.title}</div>
                     <Row className='h-100 d-flex justify-content-around'>
-                        <ToDo tasks={projectData.toDoTasks}/>
-                        <Doing tasks={projectData.doingTasks}/>
-                        <Done tasks={projectData.doneTasks}/>
+                        <TaskList status='To Do'tasks={projectData.toDoTasks}/>
+                        <TaskList status='Doing' tasks={projectData.doingTasks}/>
+                        <TaskList status='Done' tasks={projectData.doneTasks}/>
                     </Row>
                 </section>
             </Row>
