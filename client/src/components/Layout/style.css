@@ -10,3 +10,11 @@
 .login{
     background-color: rgb(83, 172, 255);
 }
+
+.modalButton{
+    background-color: rgb(127, 204, 255);
+    color: black;
+    font-weight:500;
+    border-radius: 8px;
+    height:25%;
+}

@@ -3,7 +3,6 @@ import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout'
-import DefaultHeader from './components/defaultHeader';
 import Home from './pages/Home';
 import Create from './pages/Create';
 import Login from './pages/Login';

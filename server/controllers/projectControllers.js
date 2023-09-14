@@ -2,12 +2,15 @@ const { User, Project, Notification, Task } = require('../models');
 
 const createProject = async (req, res) => {
     try{
-        const project = await Project.create(req.body, {
+        const project = await Project.create({
+            title: req.body.title,
+            creator: req.user.id
+        }, {
             include: [{
                 model: User
             }]
         });
-        const creator = await User.findByPk(req.body.creator);
+        const creator = await User.findByPk(req.user.id);
         await creator.addProject(project);
         await project.addUser(creator);
         const newProject = await project.reload();
@@ -33,6 +36,10 @@ const getProject = async (req, res) => {
             attributes: ['id']
         }]
         });
+        const user = await User.findByPk(req.user.id);
+        if(!project.hasUser(user)){
+            res.sendStatus(401);
+        }
         const { tasks, title, users } = project;
         const toDoTasks = [];
         const doingTasks = [];

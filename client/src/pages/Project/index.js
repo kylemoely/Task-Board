@@ -6,17 +6,42 @@ import Sidebar from '../../components/Sidebar';
 import ToDo from '../../components/ToDo';
 import Doing from '../../components/Doing';
 import Done from '../../components/Done';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import { useState, useEffect } from 'react';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 export default function Project() {
 
     const params = useParams();
     const { auth } = useAuth();
+    const axiosPrivate = useAxiosPrivate();
+    const navigate = useNavigate();
+
+    const [projectData, setProjectData] = useState({});
+    const [isLoading, setIsLoading] = useState(true);
+    const [isAuthed, setIsAuthed] = useState(false);
+
+    useEffect(() => {
+        const getProjectData = async () => {
+            const response = await axiosPrivate.get(`/api/projects/${params.projectId}`);
+            setIsLoading(false);
+            if(response.status===403){
+                navigate('/login');
+            } else if(response.status===401){
+                return;
+            } else{
+                setProjectData({...response.data})
+                setIsAuthed(true);
+                console.log(projectData);
+            }
+        }
+
+        getProjectData();
+    }, [])
 
     return(
-        auth.userProjects.includes(params.projectId) ?
-        <Container className='full mt-4'>
+        <>{isLoading ? <p>Loading...</p> : isAuthed ? <Container className='full mt-4'>
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
@@ -28,7 +53,9 @@ export default function Project() {
                     </Row>
                 </section>
             </Row>
-        </Container>
-        : <div>You do not have access to this page.</div>
+        </Container> :
+        <p>You are not authorized!</p>    
+    }
+        </>
     )
 }
