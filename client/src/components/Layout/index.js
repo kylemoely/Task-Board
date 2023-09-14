@@ -10,7 +10,6 @@ import CreateProject from '../CreateProject';
 const Layout = () => {
 
     const { auth } = useAuth();
-    console.log(auth);
 
     return (
         <>
