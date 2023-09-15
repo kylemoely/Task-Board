@@ -22,7 +22,7 @@ export default function CreateProject () {
         setAuth(prev => {
             return {
                 ...prev,
-                projects: [prev.projects, response.data]
+                projects: [...prev.projects, response.data]
             }
         });
         navigate(`/project/${response.data.id}`);

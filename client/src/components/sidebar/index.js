@@ -11,7 +11,7 @@ export default function Sidebar() {
     return(
             <div className='bordered h-100 col-12 col-md-2 rounded d-flex flex-column align-items-center'>
                 <div className='h2'>Projects</div>
-                {auth.projects.map(project => <Link to={`/project/${project.id}`} className='project links rounded p-1 w-100 text-nowrap text-center m-1'>{project.title}</Link>)}
+                {auth.projects.map((project, i) => <Link to={`/project/${project.id}`} className='project links rounded p-1 w-100 text-nowrap text-center m-1' key={i}>{project.title}</Link>)}
             </div>
 
     )
