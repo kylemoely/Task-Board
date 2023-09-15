@@ -26,6 +26,14 @@ Project.init(
         }
     },
     {
+        hooks: {
+            async beforeCreate(newProjectData){
+                const words = newProjectData.title.split(' ');
+                words.forEach(function(word, i){ this[i]=word[0].toUpperCase() + word.substring(1) }, words);
+                newProjectData.title = words.join(' ');
+                return newProjectData;
+            }
+        },
         sequelize,
         timestamps: true,
         freezeTableName: true,
