@@ -2,8 +2,11 @@ import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 export default function CreateProject () {
+
+    const { setAuth } = useAuth();
     const navigate = useNavigate();
     const axiosPrivate = useAxiosPrivate();
     const [show, setShow] = useState(false);
@@ -16,6 +19,12 @@ export default function CreateProject () {
         e.preventDefault();
         const response = await axiosPrivate.post('/api/projects/', JSON.stringify({ title: name }));
         handleClose();
+        setAuth(prev => {
+            return {
+                ...prev,
+                projects: [prev.projects, response.data]
+            }
+        });
         navigate(`/project/${response.data.id}`);
     }
 

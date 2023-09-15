@@ -30,7 +30,7 @@ export default function Dashboard() {
         <>{ isLoading ? <p> Loading... </p> : 
         <Container className='full mt-4'>
         <Row className='h-100 d-flex justify-content-between'>
-            <Sidebar props={userData.projects} />
+            <Sidebar projects={userData.projects} />
             <section className='col-md-9'>
                 <Notifications notifications={userData.notifications} />
                 <Tasks tasks={userData.tasks} />

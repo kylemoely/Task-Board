@@ -19,8 +19,9 @@ const signUp = async (req, res) => {
 const login = async (req, res) => {
     try{
         const checkUser = await User.findOne({ 
-            where: { email: req.body.email }
-        })
+            where: { email: req.body.email },
+            include: [Project]
+        },)
         if(checkUser){
             const check = checkUser.checkPassword(req.body.password);
             if(check){
@@ -29,7 +30,8 @@ const login = async (req, res) => {
                     email: checkUser.email,
                     firstName: checkUser.firstName,
                     lastName: checkUser.lastName,
-                    color: checkUser.color
+                    color: checkUser.color,
+                    projects: checkUser.projects
                 }
                 const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 const refreshToken = jwt.sign(user, process.env.REFRESH_TOKEN_SECRET, { expiresIn: '1d' });

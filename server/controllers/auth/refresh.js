@@ -1,4 +1,4 @@
-const User = require('../../models/User');
+const { User, Project } = require('../../models/');
 const jwt = require('jsonwebtoken');
 
 const handleRefreshToken = async (req, res) => {
@@ -6,7 +6,10 @@ const handleRefreshToken = async (req, res) => {
     if(!cookies?.jwt) return res.sendStatus(401); 
     const refreshToken = cookies.jwt;
 
-    const checkUser = await User.findOne({ refreshToken });
+    const checkUser = await User.findOne({
+        where: { refreshToken },
+        include: [Project]
+    });
     if(!checkUser) return res.sendStatus(403);
 
     jwt.verify(refreshToken, process.env.REFRESH_TOKEN_SECRET, (err, decoded) => {
@@ -16,7 +19,8 @@ const handleRefreshToken = async (req, res) => {
             email: checkUser.email,
             firstName: checkUser.firstName,
             lastName: checkUser.lastName,
-            color: checkUser.color
+            color: checkUser.color,
+            projects: checkUser.projects
         }
         const accessToken = jwt.sign(user, process.env.ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
         res.json({ accessToken, user })
