@@ -1,0 +1,4 @@
+.form-select{
+    height:min-content;
+    overflow: scroll;
+}

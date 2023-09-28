@@ -33,7 +33,7 @@ const getProject = async (req, res) => {
             },
         {
             model: User,
-            attributes: ['id']
+            attributes: ['id', 'firstName', 'lastName', 'color']
         }]
         });
         const user = await User.findByPk(req.user.id);

@@ -2,7 +2,13 @@ const { User, Project, Notification, Task } = require('../models');
 
 const createTask = async (req, res) => {
     try{
-        const newTask = await Task.create(req.body)
+        const { title, projectId, description, } = req.body;
+        const newTask = await Task.create({
+            title,
+            description,
+            projectId,
+            creator: req.user.id
+        })
         if(req.body.assignees){
             req.body.assignees.forEach(async (user) => {
                 const assignee = await User.findByPk(user);

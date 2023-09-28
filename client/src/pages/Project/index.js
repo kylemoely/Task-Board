@@ -8,6 +8,7 @@ import { useParams, useNavigate, useLocation } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
 import { useState, useEffect } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import CreateTask from '../../components/CreateTask';
 
 export default function Project() {
 
@@ -34,7 +35,7 @@ export default function Project() {
         }
 
         getProjectData();
-    }, [])
+    }, [params])
 
     return(
         <>{isLoading ? <p>Loading...</p> : isAuthed ? <Container className='full mt-4'>
@@ -42,6 +43,7 @@ export default function Project() {
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
                     <div className='projectTitle h2 text-center'>{projectData.title}</div>
+                    <CreateTask users={projectData.users} projectId={params.projectId}/>
                     <Row className='h-100 d-flex justify-content-around'>
                         <TaskList status='To Do'tasks={projectData.toDoTasks}/>
                         <TaskList status='Doing' tasks={projectData.doingTasks}/>
