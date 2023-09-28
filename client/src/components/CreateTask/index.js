@@ -21,7 +21,6 @@ export default function CreateTask (props) {
                 setAssignees([...assignees, option.value]);
             }
         }
-        setDescription(document.getElementById('description').value)
         const response = await axiosPrivate.post('/api/tasks/', JSON.stringify({
             title: title,
             projectId: props.projectId,
@@ -58,7 +57,7 @@ export default function CreateTask (props) {
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Description:</Form.Label>
-                            <Form.Control as='textarea' rows={3} id='description'/>
+                            <Form.Control as='textarea' rows={3} onChange={(e) => setDescription(e.target.value)}/>
                         </Form.Group>
                         <Form.Group>
                             <Form.Label>Assignees:</Form.Label>
