@@ -12,7 +12,7 @@ export default function DashTask(props) {
     return(
         <div onClick={handleClick} projectid={props.projectId} className='bordered rounded col-md-3 dashTask d-flex flex-column'>
             <div className='projectName text-center h4'>{props.projectTitle}</div>
-            <div className='task m-1'>{props.projectTitle}</div>
+            <div className='task m-1'>{props.taskTitle}</div>
         </div>
     )
 }
