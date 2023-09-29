@@ -57,19 +57,19 @@ User.init(
                 const color = Math.floor(Math.random() * 5);
                 switch (color) {
                     case 0:
-                        newUserData.color = 'primary';
+                        newUserData.color = 'lightblue';
                         break;
                     case 1:
-                        newUserData.color = 'secondary';
+                        newUserData.color = 'pink';
                         break;
                     case 2: 
-                        newUserData.color = 'success';
+                        newUserData.color = 'orange';
                         break;
                     case 3:
-                        newUserData.color = 'danger';
+                        newUserData.color = 'lightgreen';
                         break;
                     case 4:
-                        newUserData.color = 'warning';
+                        newUserData.color = 'magenta';
                         break;
                     
                 }
