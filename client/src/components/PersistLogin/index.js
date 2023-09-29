@@ -13,7 +13,9 @@ const PersistLogin = () => {
             try{
                 await refresh();
             } catch(err){
-                console.log(err);
+                if(err.response.status===403){
+                    return;
+                };
             } finally{
                 setIsLoading(false);
             }

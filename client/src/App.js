@@ -17,9 +17,9 @@ function App() {
 
         <Route path='/signup' element={<Create />} />
         <Route path='/login' element={<Login />} />
-
+        <Route path='/' element={<Home />} />
+        
         <Route element={<PersistLogin />}>
-          <Route path='/' element={<Home />} />
           <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/project/:projectId' element={<Project />} />
         </Route>

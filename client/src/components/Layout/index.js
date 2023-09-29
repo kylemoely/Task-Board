@@ -19,7 +19,7 @@ const Layout = () => {
             <Container>
             <header className='row d-flex justify-content-around align-items-center mt-2'>
                 <CreateProject />
-                <Link to='/' className='col-12 col-md-4 notd links text-center'>Notd 📝</Link>
+                <Link to='/dashboard' className='col-12 col-md-4 notd links text-center'>Notd 📝</Link>
                 <div className='d-flex col-12 col-md-4 justify-content-end align-items-center'>
                     <Initials firstName={firstName} lastName={lastName} color={color} size={21}/>
                 </div>

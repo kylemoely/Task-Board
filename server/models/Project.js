@@ -18,7 +18,7 @@ Project.init(
             }
         },
         creator: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             references: {
                 model: 'user',
                 key: 'id'

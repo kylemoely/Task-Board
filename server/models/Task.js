@@ -6,9 +6,10 @@ class Task extends Model{}
 Task.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true,
+            defaultValue: DataTypes.UUIDV4,
+            allowNull: false
         },
         title: {
             type: DataTypes.STRING,
@@ -21,7 +22,7 @@ Task.init(
             type: DataTypes.STRING,
         },
         creator: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             references: {
                 model: 'user',
                 key: 'id'
