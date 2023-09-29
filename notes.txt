@@ -1,2 +1,5 @@
 Delete user from project.
 What happens to the tasks they are assigned to?
+
+9/28
+    Created CreateTask modal. Properly creates the task and assigns the new users. Needs to be automatically loaded on the page (maybe set something in the auth to true or false every time we want a reload). TaskBox needs to be setup to render assignees. I think we should make an assignee initials component that can be easily rendered with anyone's initials and color.

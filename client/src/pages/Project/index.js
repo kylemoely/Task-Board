@@ -19,6 +19,7 @@ export default function Project() {
     const [projectData, setProjectData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [isAuthed, setIsAuthed] = useState(false);
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         const getProjectData = async () => {
@@ -35,7 +36,7 @@ export default function Project() {
         }
 
         getProjectData();
-    }, [params])
+    }, [params, reload])
 
     return(
         <>{isLoading ? <p>Loading...</p> : isAuthed ? <Container className='full mt-4'>
@@ -43,7 +44,7 @@ export default function Project() {
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
                     <div className='projectTitle h2 text-center'>{projectData.title}</div>
-                    <CreateTask users={projectData.users} projectId={params.projectId}/>
+                    <CreateTask reload={setReload} users={projectData.users} projectId={params.projectId}/>
                     <Row className='h-100 d-flex justify-content-around'>
                         <TaskList status='To Do'tasks={projectData.toDoTasks}/>
                         <TaskList status='Doing' tasks={projectData.doingTasks}/>

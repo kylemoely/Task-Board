@@ -28,6 +28,7 @@ export default function CreateTask (props) {
             assignees: assignees
         }))
         console.log(response);
+        props.reload(prev => !prev);
         handleClose();
     }
 
