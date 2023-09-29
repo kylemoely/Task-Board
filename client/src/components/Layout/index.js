@@ -6,10 +6,12 @@ import { Link } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import CreateProject from '../CreateProject';
+import Initials from '../Initials';
 
 const Layout = () => {
 
     const { auth } = useAuth();
+    const { firstName, lastName, color } = auth;
 
     return (
         <>
@@ -19,7 +21,7 @@ const Layout = () => {
                 <CreateProject />
                 <Link to='/' className='col-12 col-md-4 notd links text-center'>Notd 📝</Link>
                 <div className='d-flex col-12 col-md-4 justify-content-end align-items-center'>
-                    <div className={`bg-${auth.color} initials`}>{auth.firstName[0]+auth.lastName[0]}</div>
+                    <Initials firstName={firstName} lastName={lastName} color={color} size={21}/>
                 </div>
                 
             </header>
