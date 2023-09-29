@@ -4,10 +4,10 @@ import './style.css'
 import { useNavigate } from 'react-router-dom';
 
 export default function DashTask(props) {
+
     const navigate = useNavigate();
     const handleClick = (e) => {
-        console.log('click');
-        navigate(`/project/${e.target.projectid}`);
+        navigate(`/project/${props.projectId}`);
     }
     return(
         <div onClick={handleClick} projectid={props.projectId} className='bordered rounded col-md-3 dashTask d-flex flex-column'>
