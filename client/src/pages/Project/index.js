@@ -44,11 +44,11 @@ export default function Project() {
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
                     <div className='projectTitle h2 text-center'>{projectData.title}</div>
-                    <CreateTask reload={setReload} users={projectData.users} projectId={params.projectId}/>
+                    <CreateTask setReload={setReload} users={projectData.users} projectId={params.projectId}/>
                     <Row className='h-100 d-flex justify-content-around'>
-                        <TaskList status='To Do'tasks={projectData.toDoTasks}/>
-                        <TaskList status='Doing' tasks={projectData.doingTasks}/>
-                        <TaskList status='Done' tasks={projectData.doneTasks}/>
+                        <TaskList setReload={setReload} status='To Do'tasks={projectData.toDoTasks}/>
+                        <TaskList setReload={setReload} status='Doing' tasks={projectData.doingTasks}/>
+                        <TaskList setReload={setReload} status='Done' tasks={projectData.doneTasks}/>
                     </Row>
                 </section>
             </Row>
