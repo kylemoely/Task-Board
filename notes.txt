@@ -3,3 +3,10 @@ What happens to the tasks they are assigned to?
 
 9/28
     Created CreateTask modal. Properly creates the task and assigns the new users. Needs to be automatically loaded on the page (maybe set something in the auth to true or false every time we want a reload). TaskBox needs to be setup to render assignees. I think we should make an assignee initials component that can be easily rendered with anyone's initials and color.
+
+10/3
+    "<User1> moved your task to <status>."  taskMove
+    "<User1> assigned you to a task."  assignedYou
+    "<User1> invited you to join a project: <Project>"  invitedYou
+    "<User1> assigned your task to <User2>."  assignedUser
+

@@ -6,12 +6,18 @@ class Notification extends Model {}
 Notification.init(
     {
         id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.UUID,
             primaryKey: true,
-            autoIncrement: true,
+            defaultValue: DataTypes.UUIDV4
         },
-        content: {
+        class: {
             type: DataTypes.STRING,
+        },
+        str1: {
+            type: DataTypes.STRING,
+        },
+        str2: {
+            type: DataTypes.STRING
         },
         status: {
             type: DataTypes.INTEGER,
