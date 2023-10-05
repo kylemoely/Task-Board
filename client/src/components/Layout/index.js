@@ -2,16 +2,26 @@ import { Outlet } from 'react-router-dom';
 import React from 'react';
 import './style.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Container } from 'react-bootstrap';
 import useAuth from '../../hooks/useAuth';
 import CreateProject from '../CreateProject';
 import Initials from '../Initials';
+import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 
 const Layout = () => {
 
-    const { auth } = useAuth();
+    const navigate = useNavigate();
+    const axiosPrivate = useAxiosPrivate();
+    const { auth, setAuth } = useAuth();
     const { firstName, lastName, color } = auth;
+
+    const handleLogout = async () => {
+        const response = await axiosPrivate.get('/logout');
+        setAuth({});
+        console.log(response);
+        navigate('/');
+    }
 
     return (
         <>
@@ -21,6 +31,7 @@ const Layout = () => {
                 <CreateProject />
                 <Link to='/dashboard' className='col-12 col-md-4 notd links text-center'>Notd 📝</Link>
                 <div className='d-flex col-12 col-md-4 justify-content-end align-items-center'>
+                    <button onClick={handleLogout} className='button'>Logout</button>
                     <Initials firstName={firstName} lastName={lastName} color={color} size={21}/>
                 </div>
                 

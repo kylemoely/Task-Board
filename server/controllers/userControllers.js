@@ -56,6 +56,26 @@ const login = async (req, res) => {
     
 };
 
+const logout = async (req, res) => {
+    const cookies = req.cookies;
+    if(!cookies?.jwt) return res.sendStatus(200);
+    const refreshToken = cookies.jwt;
+
+    const user = await User.findOne({
+        where: { refreshToken: refreshToken }
+    });
+
+    if(!user){
+        res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+        return res.sendStatus(200);
+    }
+
+    user.refreshToken = '';
+    await user.save();
+    res.clearCookie('jwt', { httpOnly: true, sameSite: 'None', secure: true });
+    res.sendStatus(200);
+}
+
 const getUserData = async (req, res) => {
     try{
         const user = await User.findByPk(req.user.id, {
@@ -87,4 +107,4 @@ const getUserData = async (req, res) => {
     }
 }
 
-module.exports =   { login, signUp, getUserData };
+module.exports =   { login, signUp, getUserData, logout };
