@@ -43,8 +43,8 @@ export default function Project() {
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
-                    <div className='projectTitle h2 text-center'>{projectData.title}</div>
-                    <CreateTask setReload={setReload} users={projectData.users} projectId={params.projectId}/>
+                    <div className='projectTitle h2 text-center'>{projectData.title} <CreateTask setReload={setReload} users={projectData.users} projectId={params.projectId}/></div>
+                    
                     <Row className='h-100 d-flex justify-content-around'>
                         <TaskList setReload={setReload} status='To Do'tasks={projectData.toDoTasks}/>
                         <TaskList setReload={setReload} status='Doing' tasks={projectData.doingTasks}/>
