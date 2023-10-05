@@ -19,7 +19,6 @@ const Layout = () => {
     const handleLogout = async () => {
         const response = await axiosPrivate.get('/logout');
         setAuth({});
-        console.log(response);
         navigate('/');
     }
 
