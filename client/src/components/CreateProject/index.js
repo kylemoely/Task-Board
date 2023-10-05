@@ -44,7 +44,7 @@ export default function CreateProject () {
                     <Modal.Title>New Project</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
-                    <Form>
+                    <Form onSubmit={handleSubmit}>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Name:</Form.Label>
                         <Form.Control
@@ -58,7 +58,7 @@ export default function CreateProject () {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit}>Create</Button>
+                    <Button variant="primary" onClick={handleSubmit} type='submit'>Create</Button>
                 </Modal.Footer>
             </Modal>
     </div>

@@ -22,7 +22,13 @@ export default function Tasklist(props) {
                 status = 2;
                 break;
         }
-        await axiosPrivate.put(`/api/tasks/${taskId}`, JSON.stringify({ status }));
+        const response = await axiosPrivate.put(`/api/tasks/${taskId}`, JSON.stringify({ status }));
+        await axiosPrivate.post(`/api/notifications/`, JSON.stringify({
+            type: 'taskMove',
+            str2: props.status,
+            recipients: [response.data.creator],
+            link: `/project/${response.data.projectId}`
+        }))
         props.setReload(prev => !prev);
     }
 

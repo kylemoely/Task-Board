@@ -10,7 +10,7 @@ Notification.init(
             primaryKey: true,
             defaultValue: DataTypes.UUIDV4
         },
-        class: {
+        type: {
             type: DataTypes.STRING,
         },
         str1: {
@@ -22,6 +22,9 @@ Notification.init(
         status: {
             type: DataTypes.INTEGER,
             defaultValue: 0
+        },
+        link: {
+            type:DataTypes.STRING
         }
     },
     {

@@ -6,7 +6,9 @@ const createNotification = async (req, res) => {
         const notifications = []
         recipients.forEach(async (recip) => {
             const user = await User.findByPk(recip);
-            const notification = await Notification.create(req.body);
+            const notification = await Notification.create({
+                ...req.body,
+                str1: `${req.user.firstName} ${req.user.lastName}`});
             if(!user){
                 res.status(404).json({ message: 'User not found' });
             } else if(!notification){
