@@ -12,7 +12,10 @@ export default function CreateProject () {
     const [show, setShow] = useState(false);
     const [name, setName] = useState('');
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setName('');
+        setShow(false);
+    }
     const handleShow = () => setShow(true);
 
     const handleSubmit = async (e) => {
@@ -58,7 +61,7 @@ export default function CreateProject () {
                     <Button variant="secondary" onClick={handleClose}>
                         Cancel
                     </Button>
-                    <Button variant="primary" onClick={handleSubmit} type='submit'>Create</Button>
+                    <Button variant="primary" disabled={name ? false : true} onClick={handleSubmit} type='submit'>Create</Button>
                 </Modal.Footer>
             </Modal>
     </div>

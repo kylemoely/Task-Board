@@ -11,7 +11,12 @@ export default function CreateTask (props) {
     const [assignees, setAssignees] = useState([]);
     const [description, setDescription] = useState('');
 
-    const handleClose = () => setShow(false);
+    const handleClose = () => {
+        setTitle('');
+        setAssignees([]);
+        setDescription('');
+        setShow(false);
+    }
     const handleShow = () => setShow(true);
 
     const handleSubmit = async (e) => {
@@ -34,7 +39,7 @@ export default function CreateTask (props) {
 
     return (
         <div className='col-md-4 d-flex justify-content-start'>
-            <button className='button modalButton' onClick={handleShow}>
+            <button className='button modalButton h-100' onClick={handleShow}>
                 New Task
             </button>
 
