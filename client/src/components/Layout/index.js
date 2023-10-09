@@ -26,7 +26,7 @@ const Layout = () => {
         <>
         {auth.accessToken ? 
             <Container>
-            <header className='row d-flex justify-content-around align-items-center mt-2'>
+            <header className='row d-flex justify-content-around align-items-center mt-2' style={{backgroundColor: 'white'}}>
                 <CreateProject />
                 <Link to='/dashboard' className='col-12 col-md-4 notd links text-center'>Notd 📝</Link>
                 <div className='d-flex col-12 col-md-4 justify-content-end align-items-center'>
@@ -39,7 +39,7 @@ const Layout = () => {
         </Container>
         :
         <Container>
-            <header className='row d-flex justify-content-around mt-2'>
+            <header className='row d-flex justify-content-around mt-2' style={{backgroundColor: 'white'}}>
                 <Link to='/' className='col-12 col-md-8 notd links'>Notd 📝</Link>
                 <div className='d-flex col-12 col-md-3 justify-content-center align-items-center'>
                     <Link to='/signup' className='signup button links'>Get Started</Link>

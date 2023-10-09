@@ -44,7 +44,7 @@ export default function Project() {
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
-                    <div className='projectTitle h2 text-center'>{projectData.title}</div>
+                    <div style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} className='projectTitle h2 align-self-center text-center bordered rounded ps-5 pe-5' >{projectData.title}</div>
                     <div className='m-1 d-flex justify-content-between'>
                         <CreateTask setReload={setReload} users={projectData.users} projectId={params.projectId}/>
                         <Invite />

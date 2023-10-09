@@ -11,7 +11,7 @@ export default function TaskBox({ task }) {
     }
 
     return(
-        <div className='bordered rounded w-100 m-1 d-flex flex-column' draggable='true' onDragStart={(e) => handleOnDrag(e, task.id)}>
+        <div style={{backgroundColor: 'white', boxShadow: '0px 2px 2px 1px rgb(138, 138, 138)'}} className='bordered rounded w-100 m-1 d-flex flex-column' draggable='true' onDragStart={(e) => handleOnDrag(e, task.id)}>
             <div className='assignees d-flex justify-content-end'>
                 {task.users.length>1 ? <div><Initials size={14} color={firstUser.color} firstName={firstUser.firstName} lastName={firstUser.lastName}/>+{task.users.length-1}</div> : task.users.length===1 ? <Initials size={14} color={firstUser.color} firstName={firstUser.firstName} lastName={firstUser.lastName}/> : <></>}
             </div>

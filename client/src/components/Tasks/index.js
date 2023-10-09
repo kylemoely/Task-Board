@@ -8,7 +8,7 @@ import DashTask from '../DashTask';
 export default function Tasks(props) {
     
     return(
-            <Row className='bordered h-50 rounded'>
+            <Row style={{backgroundColor: 'white'}} className='bordered h-50 rounded'>
                 <div className='h2'>Tasks</div>
                 <Row className='h-75 m-1 d-flex justify-content-start'>
                     {props.tasks.map(task => {
