@@ -73,7 +73,7 @@ export default function Create(){
         <Container className='full d-flex align-items-center justify-content-center'>
             <Row>
                 {regStep===0 ?
-                <form onSubmit={handleSubmit} className='acctForm d-flex flex-column align-items-center rounded pb-2'>
+                <form style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} onSubmit={handleSubmit} className='acctForm d-flex flex-column align-items-center rounded pb-2'>
                     <div className='h2'>Create Account</div>
                     <label htmlFor='email' className='align-self-start h5 d-flex'>Email
                         <p className={email && !validEmail ? 'm-1' : 'offscreen'}>❌</p>
@@ -135,7 +135,7 @@ export default function Create(){
                     </div>
                     <Link to='/login' className='mt-1'>Already have an account?</Link>
                 </form> : 
-                <form onSubmit={handleSubmitTwo} className='acctForm d-flex flex-column align-items-center rounded pb-2'>
+                <form  style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} onSubmit={handleSubmitTwo} className='acctForm d-flex flex-column align-items-center rounded pb-2'>
                     <div className='h2'>Welcome!</div>
                     <div className='h5 mt-3 text-center'>Finish signing up by entering your full name</div>
                     <div className='mt-4 d-flex justify-content-around'>

@@ -44,7 +44,7 @@ export default function Login(){
     return(
         <Container className='full d-flex align-items-center justify-content-center'>
             <Row className=''>
-                <form className='acctForm d-flex flex-column align-items-center rounded pb-2' onSubmit={handleLogin}>
+                <form style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} className='acctForm d-flex flex-column align-items-center rounded pb-2' onSubmit={handleLogin}>
                     <div className='h2'>Login</div>
                     <label htmlFor='email' className='align-self-start h5'>Email</label>
                     <input type='text' placeholder='someone@somewhere.com' name='email' className='form-control' onChange={(e) => setEmail(e.target.value)}></input>
