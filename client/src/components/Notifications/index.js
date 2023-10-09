@@ -9,7 +9,7 @@ export default function Notifications({ notifications }) {
 
 
     return(
-            <Row style={{backgroundColor: 'white'}} className='bordered h-50 rounded d-flex flex-column'>
+            <Row style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} className='bordered h-50 rounded d-flex flex-column'>
                 <div className='h2'>Notifications</div>
                 {notifications.map((not, i) => {
                     return <Notification key={i} notification={not}/>
