@@ -44,10 +44,10 @@ export default function Project() {
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
-                    <div style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} className='projectTitle h2 align-self-center text-center bordered rounded ps-5 pe-5' >{projectData.title}</div>
+                    <div style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} className='projectTitle h2 align-self-center text-center bordered rounded ps-5 pb-1 pe-5' >{projectData.title}</div>
                     <div className='m-1 d-flex justify-content-between'>
                         <CreateTask setReload={setReload} users={projectData.users} projectId={params.projectId}/>
-                        <Invite />
+                        <Invite project={projectData.title} projectId={params.projectId}/>
                     </div>
                     <Row className='h-100 d-flex justify-content-around'>
                         <TaskList setReload={setReload} status='To Do'tasks={projectData.toDoTasks}/>
