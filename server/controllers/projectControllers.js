@@ -76,6 +76,22 @@ const updateProject = async (req, res) => {
     }
 }
 
+const inviteUserToProject = async (req, res) => {
+    try{
+        const user = await User.findOne({ email: req.body.email });
+        if(!user){
+            return res.sendStatus(404);
+        }
+        const project = await Project.findByPk(req.params.projectId);
+        project.invitedUsers.push(user.id);
+        await project.save();
+        res.status(200).json(project);
+    } catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+}
+
 const deleteProject = async (req, res) => {
     try{
         const project = await Project.destroy({ where: { id: req.params.projectId } });
@@ -86,4 +102,4 @@ const deleteProject = async (req, res) => {
     }
 }
 
-module.exports = { createProject, getProject, updateProject, deleteProject };
+module.exports = { createProject, getProject, updateProject, deleteProject, inviteUserToProject };

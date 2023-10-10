@@ -23,6 +23,10 @@ Project.init(
                 model: 'user',
                 key: 'id'
             }
+        },
+        invitedUsers: {
+            type: DataTypes.JSON,
+            defaultValue: []
         }
     },
     {
