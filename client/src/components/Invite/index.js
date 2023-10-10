@@ -16,7 +16,13 @@ export default function Invite (props) {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        
+        const putResponse = await axiosPrivate.put(`/api/projects/${props.projectId}/add`, JSON.stringify({ email }));
+        await axiosPrivate.post('/api/notifications', JSON.stringify({
+            type: 'invitedYou',
+            str2: props.project,
+            link: `/project/${props.projectId}`,
+            recipients: [putResponse.data[1]]
+        }));
         handleClose();
     }
 

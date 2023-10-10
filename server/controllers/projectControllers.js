@@ -85,7 +85,7 @@ const inviteUserToProject = async (req, res) => {
         const project = await Project.findByPk(req.params.projectId);
         project.invitedUsers.push(user.id);
         await project.save();
-        res.status(200).json(project);
+        res.status(200).json([project, user.id]);
     } catch(err){
         console.log(err);
         res.status(500).json(err);
