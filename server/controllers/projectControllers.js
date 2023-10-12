@@ -106,8 +106,9 @@ const userAnswersInvite = async (req, res) => {
         await project.save();
         if(req.params.answer==='accept'){
                 const user = await User.findByPk(req.user.id);
-                user.addProject(project);
-                project.addUser(user);
+                await user.addProject(project);
+                await project.addUser(user);
+                return res.status(200).json(project);
         }
         res.sendStatus(200);
     } catch(err){

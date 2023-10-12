@@ -2,22 +2,37 @@ import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
+import useAuth from '../../hooks/useAuth';
 
 export default function Welcome (props) {
 
+    const { setAuth } = useAuth();
     const navigate = useNavigate();
     const axiosPrivate = useAxiosPrivate();
     const [show, setShow] = useState(true);
 
     const handleClose = async () => {
-        await axiosPrivate.put(`/api/projects/${props.projectId}/deny`);
-        navigate('/dashboard');
         setShow(false);
+    }
+
+    const handleDeny = async () => {
+        await axiosPrivate.put(`/api/projects/${props.projectId}/deny`);
+        handleClose();
+        navigate('/dashboard');
     }
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-
+        const response = await axiosPrivate.put(`/api/projects/${props.projectId}/accept`);
+        setAuth(prev => {
+            return {
+                ...prev,
+                projects: [...prev.projects, response.data]
+            }
+        })
+        props.setReload(prev => !prev);
+        props.setIsInvited(false);
+        props.setIsAuthed(true);
         handleClose();
     }
 
@@ -37,7 +52,7 @@ export default function Welcome (props) {
                     <div className='h5 text-center'>{props.project}</div>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button variant="secondary" onClick={handleClose}>
+                    <Button variant="secondary" onClick={handleDeny}>
                         Deny
                     </Button>
                     <Button variant="primary" onClick={handleSubmit}>Accept</Button>

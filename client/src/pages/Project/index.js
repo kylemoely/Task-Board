@@ -53,7 +53,7 @@ export default function Project() {
     }, [params, reload])
 
     return(
-        <>{isLoading ? <p>Loading...</p> : isInvited ? <Welcome projectId={params.projectId} project={projectData.title}/> : isAuthed ? <Container className='full mt-4'>
+        <>{isLoading ? <p>Loading...</p> : isInvited ? <Welcome setReload={setReload} setIsAuthed={setIsAuthed} setIsInvited={setIsInvited} projectId={params.projectId} project={projectData.title}/> : isAuthed ? <Container className='full mt-4'>
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
