@@ -36,11 +36,15 @@ const getProject = async (req, res) => {
             attributes: ['id', 'firstName', 'lastName', 'color']
         }]
         });
-        const user = await User.findByPk(req.user.id);
-        if(!project.hasUser(user)){
-            res.sendStatus(401);
-        }
         const { tasks, title, users } = project;
+        const user = await User.findByPk(req.user.id);
+        const isAuthed = await project.hasUser(user);
+        if(project.invitedUsers.includes(req.user.id)){
+            return res.status(202).json({ title });
+        }
+        if(!isAuthed){
+            return res.sendStatus(204);
+        }
         const toDoTasks = [];
         const doingTasks = [];
         const doneTasks = [];
@@ -78,14 +82,34 @@ const updateProject = async (req, res) => {
 
 const inviteUserToProject = async (req, res) => {
     try{
-        const user = await User.findOne({ email: req.body.email });
+        const user = await User.findOne({ where: { email: req.body.email } });
         if(!user){
             return res.sendStatus(404);
         }
         const project = await Project.findByPk(req.params.projectId);
-        project.invitedUsers.push(user.id);
+        project.invitedUsers = [...project.invitedUsers, user.id]
         await project.save();
         res.status(200).json([project, user.id]);
+    } catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+}
+
+const userAnswersInvite = async (req, res) => {
+    try{
+        const project = await Project.findByPk(req.params.projectId);
+        let invitedUsers = project.invitedUsers;
+        invitedUsers.splice(invitedUsers.indexOf(req.user.id), 1);
+        project.invitedUsers = [...invitedUsers];
+        project.changed('invitedUsers', true);
+        await project.save();
+        if(req.params.answer==='accept'){
+                const user = await User.findByPk(req.user.id);
+                user.addProject(project);
+                project.addUser(user);
+        }
+        res.sendStatus(200);
     } catch(err){
         console.log(err);
         res.status(500).json(err);
@@ -102,4 +126,4 @@ const deleteProject = async (req, res) => {
     }
 }
 
-module.exports = { createProject, getProject, updateProject, deleteProject, inviteUserToProject };
+module.exports = { createProject, getProject, updateProject, deleteProject, inviteUserToProject, userAnswersInvite };

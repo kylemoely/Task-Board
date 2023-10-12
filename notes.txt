@@ -10,3 +10,17 @@ What happens to the tasks they are assigned to?
     "<User1> invited you to join a project: <Project>"  invitedYou
     "<User1> assigned your task to <User2>."  assignedUser
 
+
+10/10
+    Invite user to project:
+    When invite is submitted:
+        create Notification
+            link?
+                link is the project page
+        
+        what if 
+            projects has an array of invited users
+            when invite is submitted, server finds user id by their email, adds it to the array. 
+            when user follows notification link to project page, modal pops up telling them theyve been invited.
+            if they accept, server removes user id from invited users of project, adds user to project through sequelize association
+            if they deny, server removes user id from invited users of project, redirects them back to their home page

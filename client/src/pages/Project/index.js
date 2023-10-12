@@ -10,6 +10,7 @@ import { useState, useEffect } from 'react';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import CreateTask from '../../components/CreateTask';
 import Invite from '../../components/Invite';
+import Welcome from '../../components/Welcome';
 
 export default function Project() {
 
@@ -20,44 +21,56 @@ export default function Project() {
     const [projectData, setProjectData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
     const [isAuthed, setIsAuthed] = useState(false);
+    const [isInvited, setIsInvited] = useState(false);
     const [reload, setReload] = useState(false);
 
     useEffect(() => {
         const getProjectData = async () => {
-            const response = await axiosPrivate.get(`/api/projects/${params.projectId}`);
-            setIsLoading(false);
-            if(response.status===403){
-                navigate('/login');
-            } else if(response.status===401){
-                return;
-            } else{
-                setProjectData({...response.data})
-                setIsAuthed(true);
+            try{
+                const response = await axiosPrivate.get(`/api/projects/${params.projectId}`);
+                switch(response.status){
+                    case 200:
+                        setIsAuthed(true);
+                        break;
+                    case 202:
+                        setIsInvited(true);
+                        break;
+                }
+                setProjectData({...response.data});
+            } catch(err){
+                if(err.response.status===401){
+                    navigate('/login');
+                }
+                console.log(err);
+            } finally{
+                setIsLoading(false);
             }
+            
         }
+    
 
         getProjectData();
     }, [params, reload])
 
     return(
-        <>{isLoading ? <p>Loading...</p> : isAuthed ? <Container className='full mt-4'>
+        <>{isLoading ? <p>Loading...</p> : isInvited ? <Welcome projectId={params.projectId} project={projectData.title}/> : isAuthed ? <Container className='full mt-4'>
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>
                     <div style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}} className='projectTitle h2 align-self-center text-center bordered rounded ps-5 pb-1 pe-5' >{projectData.title}</div>
                     <div className='m-1 d-flex justify-content-between'>
-                        <CreateTask setReload={setReload} users={projectData.users} projectId={params.projectId}/>
+                        <CreateTask setReload={setReload} users={projectData.users || []} projectId={params.projectId}/>
                         <Invite project={projectData.title} projectId={params.projectId}/>
                     </div>
                     <Row className='h-100 d-flex justify-content-around'>
-                        <TaskList setReload={setReload} status='To Do'tasks={projectData.toDoTasks}/>
-                        <TaskList setReload={setReload} status='Doing' tasks={projectData.doingTasks}/>
-                        <TaskList setReload={setReload} status='Done' tasks={projectData.doneTasks}/>
+                        <TaskList setReload={setReload} status='To Do'tasks={projectData.toDoTasks || []}/>
+                        <TaskList setReload={setReload} status='Doing' tasks={projectData.doingTasks || []}/>
+                        <TaskList setReload={setReload} status='Done' tasks={projectData.doneTasks || []}/>
                     </Row>
                 </section>
             </Row>
         </Container> :
-        <p>You are not authorized!</p>    
+        <p className='text-center h2 mt-5'>You do not have access to this page.</p>    
     }
         </>
     )
