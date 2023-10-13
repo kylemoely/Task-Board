@@ -59,10 +59,11 @@ export default function CreateTask (props) {
                             <Form.Control
                                 onChange={(e) => setTitle(e.target.value)}
                                 autoFocus
+                                maxLength={60}
                             />
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Description:</Form.Label>
+                            <Form.Label>Details:</Form.Label>
                             <Form.Control as='textarea' rows={3} onChange={(e) => setDescription(e.target.value)}/>
                         </Form.Group>
                         <Form.Group>
