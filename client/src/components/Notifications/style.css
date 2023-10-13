@@ -1,8 +1,10 @@
 .notification{
-    background-color: rgb(127, 204, 255);
+    background-color: rgb(233, 240, 244);
+    border: 2px solid gray;
     width:inherit;
     font-size:22px;
     margin: 4px 4px;
+    padding:5px;
 }
 
 .notification:hover{

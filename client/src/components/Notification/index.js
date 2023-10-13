@@ -32,6 +32,6 @@ export default function Notification ({ notification }) {
     }
 
     return (
-        <div className='notification rounded p-1' onClick={handleClick}>{content}</div>
+        <div className='notification rounded ps-2' onClick={handleClick}>{content}</div>
     )
 }
