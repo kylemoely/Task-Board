@@ -53,6 +53,7 @@ export default function CreateProject () {
                         <Form.Control
                             onChange={(e) => setName(e.target.value)}
                             autoFocus
+                            maxLength={30}
                         />
                         </Form.Group>
                     </Form>
