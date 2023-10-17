@@ -37,7 +37,7 @@ export default function Tasklist(props) {
     }
 
     return(
-        <div className='bordered rounded col-md-3 h-100 d-flex align-items-center flex-column' onDrop={handleOnDrop} onDragOver={handleDragOver} style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}}>
+        <div className='bordered rounded tasklist col-md-3 h-100 d-flex align-items-center flex-column' onDrop={handleOnDrop} onDragOver={handleDragOver} style={{backgroundColor: 'white', boxShadow: '0px 2px 4px 2px rgb(138, 138, 138)'}}>
             <div className='h4 text-center'>{props.status}</div>
             {props.tasks.map((task, i) => <TaskBox key={i} task={task} />)}
         </div>
