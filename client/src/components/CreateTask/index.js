@@ -2,39 +2,45 @@ import { useState } from 'react';
 import { Button, Modal, Form } from 'react-bootstrap';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import './style.css';
+import handleError from '../../hooks/handleError';
 
 export default function CreateTask (props) {
 
     const axiosPrivate = useAxiosPrivate();
     const [show, setShow] = useState(false);
     const [title, setTitle] = useState('');
-    const [assignees, setAssignees] = useState([]);
+    const [errMsg, setErrMsg] = useState('');
     const [description, setDescription] = useState('');
 
     const handleClose = () => {
         setTitle('');
-        setAssignees([]);
         setDescription('');
+        setErrMsg('');
         setShow(false);
     }
     const handleShow = () => setShow(true);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        for (var option of document.getElementById('select').options){
-            if(option.selected){
-                setAssignees([...assignees, option.value]);
+        try{
+            let assignees = [];
+            for (var option of document.getElementById('select').options){
+                if(option.selected){
+                    assignees.push(option.value);
+                }
             }
-        }
-        const response = await axiosPrivate.post('/api/tasks/', JSON.stringify({
-            title: title,
-            projectId: props.projectId,
-            description: description,
-            assignees: assignees
-        }))
-        console.log(response);
-        props.setReload(prev => !prev);
-        handleClose();
+            await axiosPrivate.post('/api/tasks/', JSON.stringify({
+                title: title,
+                projectId: props.projectId,
+                description: description,
+                assignees: assignees
+            }))
+            props.setReload(prev => !prev);
+            handleClose();
+        } catch(err){
+            handleError(err, setErrMsg);
+        }        
+        
     }
 
     return (
@@ -72,6 +78,7 @@ export default function CreateTask (props) {
                                 {props.users.map((user, i) => <option key={i} value={user.id}>{user.firstName} {user.lastName}</option>)}
                             </Form.Select>
                         </Form.Group>
+                        <p className='text-danger h6'>{errMsg}</p>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
