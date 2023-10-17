@@ -5,6 +5,9 @@ const createNotification = async (req, res) => {
         const recipients = req.body.recipients;
         const notifications = []
         recipients.forEach(async (recip) => {
+            if(recip===req.user.id){
+                return;
+            }
             const user = await User.findByPk(recip);
             const notification = await Notification.create({
                 ...req.body,

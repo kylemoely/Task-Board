@@ -35,6 +35,11 @@ export default function CreateTask (props) {
                 description: description,
                 assignees: assignees
             }))
+            await axiosPrivate.post(`/api/notifications`, JSON.stringify({
+                type: 'assignedYou',
+                link: `/project/${props.projectId}`,
+                recipients: assignees
+            }))
             props.setReload(prev => !prev);
             handleClose();
         } catch(err){
