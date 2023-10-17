@@ -11,3 +11,8 @@
     cursor:pointer;
     background-color: rgb(227, 227, 227);
 }
+
+.notArea{
+    overflow-x:hidden;
+    overflow-y:scroll;
+}

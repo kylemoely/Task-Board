@@ -1,6 +1,7 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import trash from '../../assets/trash.png';
 
 export default function Notification ({ notification }) {
 
@@ -24,6 +25,12 @@ export default function Notification ({ notification }) {
     const axiosPrivate = useAxiosPrivate();
 
     const navigate = useNavigate();
+
+    const deleteNot = async (e) => {
+        e.stopPropagation();
+        const response = await axiosPrivate.delete(`/api/notifications/${id}`);
+        console.log(response);
+    }
     const handleClick = async (e) => {
         if(status===0){
             await axiosPrivate.put(`/api/notifications/${id}`, JSON.stringify({ status: 1 }));
@@ -32,6 +39,6 @@ export default function Notification ({ notification }) {
     }
 
     return (
-        <div className='notification rounded ps-2' onClick={handleClick}>{content}</div>
+        <div className='notification rounded ps-2 d-flex justify-content-between' onClick={handleClick}><div>{content}</div><img onClick={deleteNot} className='img h-25 align-self-center' src={trash} alt='delete' /></div>
     )
 }
