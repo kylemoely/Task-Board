@@ -7,11 +7,7 @@ import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 export default function Tasklist(props) {
 
     const axiosPrivate = useAxiosPrivate();
-
-    const handleOnDrop = async (e) => {
-        try{
-            const taskId = e.dataTransfer.getData('taskId');
-            let status;
+    let status;
             switch(props.status){
                 case 'To Do':
                     status = 0;
@@ -23,6 +19,41 @@ export default function Tasklist(props) {
                     status = 2;
                     break;
             }
+    const handleOnDrop = async (e) => {
+        try{
+            const taskId = e.dataTransfer.getData('taskId');
+            const oldStatus = e.dataTransfer.getData('status');
+            let taskIndex;
+            let task;
+            switch(oldStatus){
+                case '0':
+                    taskIndex = await props.toDoTasks.findIndex(task => task.id===taskId);
+                    task = props.toDoTasks.splice(taskIndex, 1)[0];
+                    props.setToDoTasks(props.toDoTasks);
+                    break;
+                case '1':
+                    taskIndex = await props.doingTasks.findIndex(task => task.id===taskId);
+                    task = props.doingTasks.splice(taskIndex, 1)[0];
+                    props.setDoingTasks(props.doingTasks);
+                    break;
+                case '2':
+                    taskIndex = await props.doneTasks.findIndex(task => task.id===taskId);
+                    task = props.doneTasks.splice(taskIndex, 1)[0];
+                    props.setDoneTasks(props.doneTasks);
+                    break;
+            }
+            task.status = status;
+            switch(status){
+                case 0:
+                    props.setToDoTasks(prev => [...prev, task]);
+                    break;
+                case 1:
+                    props.setDoingTasks(prev => [...prev, task]);
+                    break;
+                case 2:
+                    props.setDoneTasks(prev => [...prev, task]);
+                    break;
+            }
             const response = await axiosPrivate.put(`/api/tasks/${taskId}`, JSON.stringify({ status }));
             await axiosPrivate.post(`/api/notifications/`, JSON.stringify({
                 type: 'taskMove',
@@ -32,8 +63,6 @@ export default function Tasklist(props) {
             }))
         } catch(err){
             alert('Something went wrong on our end. Please try again later.');
-        } finally{
-            props.setReload(prev => !prev);
         }
             
     }

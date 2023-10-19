@@ -19,6 +19,9 @@ export default function Project() {
     const navigate = useNavigate();
 
     const [projectData, setProjectData] = useState({});
+    const [toDoTasks, setToDoTasks] = useState([]);
+    const [doingTasks, setDoingTasks] = useState([]);
+    const [doneTasks, setDoneTasks] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isAuthed, setIsAuthed] = useState(false);
     const [isInvited, setIsInvited] = useState(false);
@@ -37,7 +40,10 @@ export default function Project() {
                         setIsInvited(true);
                         break;
                 }
-                setProjectData({...response.data});
+                setProjectData({users: response.data.users, title: response.data.title});
+                setToDoTasks(response.data.toDoTasks);
+                setDoingTasks(response.data.doingTasks);
+                setDoneTasks(response.data.doneTasks);
             } catch(err){
                 if(err.response.status===401){
                     navigate('/login');
@@ -63,9 +69,9 @@ export default function Project() {
                         <Invite project={projectData.title} projectId={params.projectId}/>
                     </div>
                     <Row className='h-100 d-flex justify-content-around'>
-                        <TaskList setReload={setReload} status='To Do'tasks={projectData.toDoTasks || []}/>
-                        <TaskList setReload={setReload} status='Doing' tasks={projectData.doingTasks || []}/>
-                        <TaskList setReload={setReload} status='Done' tasks={projectData.doneTasks || []}/>
+                        <TaskList setReload={setReload} status='To Do' setToDoTasks={setToDoTasks} setDoingTasks={setDoingTasks} setDoneTasks={setDoneTasks} toDoTasks={toDoTasks} doingTasks={doingTasks} doneTasks={doneTasks} tasks={toDoTasks || []}/>
+                        <TaskList setReload={setReload} status='Doing' setToDoTasks={setToDoTasks} setDoingTasks={setDoingTasks} setDoneTasks={setDoneTasks} toDoTasks={toDoTasks} doingTasks={doingTasks} doneTasks={doneTasks} tasks={doingTasks || []}/>
+                        <TaskList setReload={setReload} status='Done' setToDoTasks={setToDoTasks} setDoingTasks={setDoingTasks} setDoneTasks={setDoneTasks} toDoTasks={toDoTasks} doingTasks={doingTasks} doneTasks={doneTasks} tasks={doneTasks || []}/>
                     </Row>
                 </section>
             </Row>
