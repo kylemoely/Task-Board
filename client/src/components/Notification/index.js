@@ -28,14 +28,25 @@ export default function Notification ({ notification, setReload }) {
 
     const deleteNot = async (e) => {
         e.stopPropagation();
-        await axiosPrivate.delete(`/api/notifications/${id}`);
-        setReload(prev => !prev);
+        try{
+            await axiosPrivate.delete(`/api/notifications/${id}`);
+            setReload(prev => !prev);
+        } catch(err){
+            alert('Something went wrong on our end. Please try again later.');
+        }
     }
     const handleClick = async (e) => {
-        if(status===0){
-            await axiosPrivate.put(`/api/notifications/${id}`, JSON.stringify({ status: 1 }));
+        try{
+            if(status===0){
+                await axiosPrivate.put(`/api/notifications/${id}`, JSON.stringify({ status: 1 }));
+            }
+        } catch(err){
+            //navigate to 500 page?
+        } finally{
+            navigate(link);
         }
-        navigate(link);
+        
+        
     }
 
     return (

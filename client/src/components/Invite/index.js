@@ -7,12 +7,12 @@ export default function Invite (props) {
     const axiosPrivate = useAxiosPrivate();
     const [show, setShow] = useState(false);
     const [email, setEmail] = useState('');
-    const [userFound, setUserFound] = useState(true);
+    const [errMsg, setErrMsg] = useState('');
 
     const handleClose = () => {
         setEmail('');
+        setErrMsg('');
         setShow(false);
-        setUserFound(true);
     }
     const handleShow = () => setShow(true);
 
@@ -28,8 +28,11 @@ export default function Invite (props) {
             }));
             handleClose();
         } catch(err){
-            setUserFound(false);
-            console.log(err);
+            if(err.response.status.toString()[0]==='4'){
+                setErrMsg('User not found.');
+            } else{
+                setErrMsg('Something went wrong on our end. Please try again.');
+            }
         }
         
         
@@ -58,7 +61,7 @@ export default function Invite (props) {
                                 onChange={(e) => setEmail(e.target.value)}
                                 autoFocus
                             />
-                            <p className={userFound ? 'offscreen' : 'h6 text-danger'}>User not found.</p>
+                            <p className='h6 text-danger'>{errMsg}</p>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

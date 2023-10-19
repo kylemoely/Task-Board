@@ -23,6 +23,7 @@ export default function Project() {
     const [isAuthed, setIsAuthed] = useState(false);
     const [isInvited, setIsInvited] = useState(false);
     const [reload, setReload] = useState(false);
+    const [errMsg, setErrMsg] = useState('');
 
     useEffect(() => {
         const getProjectData = async () => {
@@ -40,20 +41,19 @@ export default function Project() {
             } catch(err){
                 if(err.response.status===401){
                     navigate('/login');
+                } else{
+                    setErrMsg('Something went wrong on our end. Please try again later.');
                 }
-                console.log(err);
             } finally{
                 setIsLoading(false);
             }
             
         }
-    
-
         getProjectData();
     }, [params, reload])
 
     return(
-        <>{isLoading ? <p>Loading...</p> : isInvited ? <Welcome setReload={setReload} setIsAuthed={setIsAuthed} setIsInvited={setIsInvited} projectId={params.projectId} project={projectData.title}/> : isAuthed ? <Container className='full mt-4'>
+        <>{isLoading ? <p>Loading...</p> : errMsg ? <p className='h4 text-center mt-2 text-danger'>{errMsg}</p> : isInvited ? <Welcome setReload={setReload} setIsAuthed={setIsAuthed} setIsInvited={setIsInvited} projectId={params.projectId} project={projectData.title}/> : isAuthed ? <Container className='full mt-4'>
             <Row className='h-100 justify-content-between'>
                 <Sidebar />
                 <section className='col-md-9 d-flex flex-column'>

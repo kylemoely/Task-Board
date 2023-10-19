@@ -26,7 +26,7 @@ export default function Create(){
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
 
-    // const [errMsg, setErrMsg] = useState('');
+    const [errMsg, setErrMsg] = useState('');
     const [regStep, setRegStep] = useState(0);
 
     const navigate = useNavigate();
@@ -43,29 +43,37 @@ export default function Create(){
         setValidMatch(match);
     }, [password, conf]);
 
-    // useEffect(() => {
-    //     setErrMsg('');
-    // }, [email, password, conf]);
-
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const check1 = emailRegex.test(email);
-        const check2 = passwordRegex.test(password);
-        if(!check1 || !check2){
-            // setErrMsg('Invalid Entry');
-            return;
+        try{
+            const response = await fetch(`/users`);
+            const data = await response.json();
+            if(data.includes(email)){
+                setErrMsg('Email already in use.');
+            }else{
+                setRegStep(1);
+            }
+        } catch(err){
+            setErrMsg('Something went wrong on our end. Please try again later.');
         }
-        setRegStep(1);
     }
 
     const handleSubmitTwo = async (e) => {
         e.preventDefault();
-        const response = await fetch('/api/users/signup', {
-            method: 'POST',
-            body: JSON.stringify({ email, password, firstName, lastName }),
-            headers: { 'Content-Type': 'application/json' }
-        });
-        navigate('/login');
+        try{
+            const response = await fetch('/api/users/signup', {
+                method: 'POST',
+                body: JSON.stringify({ email, password, firstName, lastName }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+            if(!response.ok){
+                throw new Error('Network down');
+            }
+            navigate('/login');
+        } catch(err){
+            setErrMsg('Something went wrong on our end. Please try again later.');
+        }
+        
     }
 
 
@@ -128,7 +136,8 @@ export default function Create(){
                         className='form-control'>
                     </input>
                     <p className={confFocus && conf && !validMatch ? 'h6 align-self-start text-danger' : 'offscreen'}>Passwords must match</p>
-                    <button className='button mt-2' disabled={!validEmail || !validPassword || !validMatch ? true : false}>Sign Up</button>
+                    { errMsg ? <div className='h6 text-danger mt-1 align-self-start ms-1'>{errMsg}</div> : <></> }
+                    <button type='submit' className='button mt-2' disabled={!validEmail || !validPassword || !validMatch ? true : false}>Sign Up</button>
                     <div className='d-flex mt-1'>
                         <div className='button'>Google</div>
                         <div className='button'>Facebook</div>
@@ -148,6 +157,7 @@ export default function Create(){
                             <input type='text' autoComplete='off' placeholder='Long' name='firstName' className='form-control' onChange={(e) => setLastName(e.target.value)}></input>
                         </div>
                     </div>
+                    { errMsg ? <div className='h6 text-danger mt-1 align-self-start ms-1'>{errMsg}</div> : <></> }
                     <button className='button mt-5' disabled={firstName && lastName ? false : true}>Get Started</button>
                     </form>}
                 

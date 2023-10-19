@@ -3,6 +3,7 @@ import { Button, Modal, Form } from 'react-bootstrap';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import { useNavigate } from 'react-router-dom';
 import useAuth from '../../hooks/useAuth';
+import handleError from '../../hooks/handleError';
 
 export default function CreateProject () {
 
@@ -11,24 +12,30 @@ export default function CreateProject () {
     const axiosPrivate = useAxiosPrivate();
     const [show, setShow] = useState(false);
     const [name, setName] = useState('');
+    const [errMsg, setErrMsg] = useState('');
 
     const handleClose = () => {
         setName('');
+        setErrMsg('');
         setShow(false);
     }
     const handleShow = () => setShow(true);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const response = await axiosPrivate.post('/api/projects/', JSON.stringify({ title: name }));
-        handleClose();
-        setAuth(prev => {
-            return {
-                ...prev,
-                projects: [...prev.projects, response.data]
-            }
-        });
-        navigate(`/project/${response.data.id}`);
+        try{
+            const response = await axiosPrivate.post('/api/projects/', JSON.stringify({ title: name }));
+            handleClose();
+            setAuth(prev => {
+                return {
+                    ...prev,
+                    projects: [...prev.projects, response.data]
+                }
+            });
+            navigate(`/project/${response.data.id}`);
+        } catch(err){
+            handleError(err, setErrMsg);
+        }
     }
 
     return (
@@ -57,6 +64,7 @@ export default function CreateProject () {
                         />
                         </Form.Group>
                     </Form>
+                    <div className='h6 text-danger'>{errMsg}</div>
                 </Modal.Body>
                 <Modal.Footer>
                     <Button variant="secondary" onClick={handleClose}>

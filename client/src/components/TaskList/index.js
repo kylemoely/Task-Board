@@ -9,27 +9,33 @@ export default function Tasklist(props) {
     const axiosPrivate = useAxiosPrivate();
 
     const handleOnDrop = async (e) => {
-        const taskId = e.dataTransfer.getData('taskId');
-        let status;
-        switch(props.status){
-            case 'To Do':
-                status = 0;
-                break;
-            case 'Doing':
-                status = 1;
-                break;
-            case 'Done':
-                status = 2;
-                break;
+        try{
+            const taskId = e.dataTransfer.getData('taskId');
+            let status;
+            switch(props.status){
+                case 'To Do':
+                    status = 0;
+                    break;
+                case 'Doing':
+                    status = 1;
+                    break;
+                case 'Done':
+                    status = 2;
+                    break;
+            }
+            const response = await axiosPrivate.put(`/api/tasks/${taskId}`, JSON.stringify({ status }));
+            await axiosPrivate.post(`/api/notifications/`, JSON.stringify({
+                type: 'taskMove',
+                str2: props.status,
+                recipients: [response.data.creator],
+                link: `/project/${response.data.projectId}`
+            }))
+        } catch(err){
+            alert('Something went wrong on our end. Please try again later.');
+        } finally{
+            props.setReload(prev => !prev);
         }
-        const response = await axiosPrivate.put(`/api/tasks/${taskId}`, JSON.stringify({ status }));
-        await axiosPrivate.post(`/api/notifications/`, JSON.stringify({
-            type: 'taskMove',
-            str2: props.status,
-            recipients: [response.data.creator],
-            link: `/project/${response.data.projectId}`
-        }))
-        props.setReload(prev => !prev);
+            
     }
 
     const handleDragOver = (e) => {

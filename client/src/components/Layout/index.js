@@ -17,9 +17,14 @@ const Layout = () => {
     const { firstName, lastName, color } = auth;
 
     const handleLogout = async () => {
-        await axiosPrivate.get('/logout');
-        setAuth({});
-        navigate('/');
+        try{
+            await axiosPrivate.get('/logout');
+        } catch(err){
+            
+        } finally{
+            setAuth({});
+            navigate('/');
+        }
     }
 
     return (

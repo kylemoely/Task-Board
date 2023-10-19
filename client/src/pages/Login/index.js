@@ -17,7 +17,7 @@ export default function Login(){
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [validPassword, setValidPassword] = useState(true);
+    const [errMsg, setErrMsg] = useState('');
 
     const handleLogin = async (e) => {
         e.preventDefault();
@@ -38,8 +38,11 @@ export default function Login(){
             })
             navigate(from, { replace: true }); 
         } catch(err){
-            setValidPassword(false);
-            console.log(err)
+            if(err.response.status===400){
+                setErrMsg('Incorrect email or password');
+            } else{
+                setErrMsg('Something went wrong on our end. Please try again later.');
+            }
         }
     }
 
@@ -52,7 +55,7 @@ export default function Login(){
                     <input type='text' placeholder='someone@somewhere.com' name='email' className='form-control' onChange={(e) => setEmail(e.target.value)}></input>
                     <label htmlFor='pwd' className='align-self-start mt-1 d-flex'><div className='h5'>Password</div></label>
                     <input type='password' placeholder='' onChange={(e) => setPassword(e.target.value)}name='pwd' className='form-control'></input>
-                    <p className={validPassword ? 'offscreen' : 'text-danger h6 align-self-start'}>Invalid email or password.</p>
+                    { errMsg ? <p className='text-danger h6 align-self-start'>{errMsg}</p> : <></> }
                     <button className='button mt-2' disabled={email && password ? false : true} >Login</button>
                     <div className='d-flex mt-1'>
                         <div className='button'>Google</div>
