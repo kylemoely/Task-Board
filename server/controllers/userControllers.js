@@ -107,7 +107,7 @@ const getUserData = async (req, res) => {
             res.status(200).json({
                 projects: user.projects,
                 notifications: user.notifications,
-                tasks: user.tasks
+                tasks: user.tasks.slice(0, 4)
             });
         } else{
             res.sendStatus(403);
