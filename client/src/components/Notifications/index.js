@@ -4,7 +4,7 @@ import './style.css'
 import { Row } from 'react-bootstrap';
 import Notification from '../Notification';
 
-export default function Notifications({ notifications }) {
+export default function Notifications({ notifications, setReload }) {
 
 
 
@@ -13,7 +13,7 @@ export default function Notifications({ notifications }) {
                 <div className='h2'>Notifications</div>
                 <div className='h-75 notArea mb-1'>
                     {notifications.map((not, i) => {
-                        return <Notification key={i} notification={not}/>
+                        return <Notification setReload={setReload} key={i} notification={not}/>
                     })}
                 </div>
                 <div style={ notifications.length>0 ? {display: 'block'} : { display: 'none' }} className='button w-25 align-self-center text-center'>View All</div>

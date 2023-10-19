@@ -8,6 +8,7 @@ import Tasks from '../../components/Tasks';
 import { useState, useEffect } from 'react';
 import useAuth from '../../hooks/useAuth';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
+import handleError from '../../hooks/handleError';
 
 export default function Dashboard() {
 
@@ -15,15 +16,23 @@ export default function Dashboard() {
     const axiosPrivate = useAxiosPrivate();
     const [userData, setUserData] = useState({});
     const [isLoading, setIsLoading] = useState(true);
+    const [errMsg, setErrMsg] = useState('');
+    const [reload, setReload] = useState(false);
 
     useEffect(() => {
         const getData = async () => {
-            const response = await axiosPrivate.get(`/api/users/`);
-            setUserData({...response.data})
-            setIsLoading(false);
+            try{
+                const response = await axiosPrivate.get(`/api/users/`);
+                setUserData({...response.data})
+            } catch(err){
+                handleError(err, setErrMsg)
+            } finally{
+                setIsLoading(false);
+            }
+            
         }
         getData();
-    }, [])
+    }, [reload])
 
     return(
 
@@ -32,7 +41,7 @@ export default function Dashboard() {
         <Row className='h-100 d-flex justify-content-between'>
             <Sidebar projects={userData.projects} />
             <section className='col-md-9'>
-                <Notifications notifications={userData.notifications} />
+                <Notifications setReload={setReload} notifications={userData.notifications} />
                 <Tasks tasks={userData.tasks} />
             </section>
             

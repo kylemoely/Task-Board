@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import useAxiosPrivate from '../../hooks/useAxiosPrivate';
 import trash from '../../assets/trash.png';
 
-export default function Notification ({ notification }) {
+export default function Notification ({ notification, setReload }) {
 
     const { type, status, str1, str2, id, link } = notification;
     let content;
@@ -28,8 +28,8 @@ export default function Notification ({ notification }) {
 
     const deleteNot = async (e) => {
         e.stopPropagation();
-        const response = await axiosPrivate.delete(`/api/notifications/${id}`);
-        console.log(response);
+        await axiosPrivate.delete(`/api/notifications/${id}`);
+        setReload(prev => !prev);
     }
     const handleClick = async (e) => {
         if(status===0){
