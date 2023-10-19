@@ -56,6 +56,17 @@ const login = async (req, res) => {
     
 };
 
+const getUsers = async (req, res) => {
+    try{
+        const users = await User.findAll({ attributes: ['email']});
+        const emails = users.map(user => user.email);
+        res.status(200).json(emails);
+    } catch(err){
+        console.log(err);
+        res.status(500).json(err);
+    }
+}
+
 const logout = async (req, res) => {
     const cookies = req.cookies;
     if(!cookies?.jwt) return res.sendStatus(200);
@@ -107,4 +118,4 @@ const getUserData = async (req, res) => {
     }
 }
 
-module.exports =   { login, signUp, getUserData, logout };
+module.exports =   { login, signUp, getUserData, logout, getUsers };
