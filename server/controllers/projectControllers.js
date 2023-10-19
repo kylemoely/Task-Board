@@ -29,7 +29,8 @@ const getProject = async (req, res) => {
                 include: [{
                     model: User,
                     attributes: ['id', 'firstName', 'lastName', 'color']
-                }]
+                }],
+                order: ['createdAt', 'DESC']
             },
         {
             model: User,

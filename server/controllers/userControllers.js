@@ -92,14 +92,17 @@ const getUserData = async (req, res) => {
         const user = await User.findByPk(req.user.id, {
             include: [
                 {
-                    model: Project
+                    model: Project,
+                    order: ['createdAt', 'DESC']
                 },
                 {
                     model: Task,
-                    include: [Project, User]
+                    include: [Project, User],
+                    order: ['createdAt', 'DESC']
                 },
                 {
-                    model: Notification
+                    model: Notification,
+                    order: ['createdAt', 'DESC']
                 }
             ]
         });
